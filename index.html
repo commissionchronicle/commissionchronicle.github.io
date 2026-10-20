@@ -1,599 +1,522 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="light dark" />
-  <link rel="icon" href="data:," />
-  <title>The Commission Chronicle — October 14, 2026</title>
-  <style>
-    :root {
-      color-scheme: light dark;
-      --paper: #f2ecdd;
-      --ground: #d9cfbd;
-      --ink: #171511;
-      --muted: #5a554c;
-      --rule: #26231d;
-      --hairline: #aaa08f;
-      --red: #982920;
-      --reverse: #f7f0e2;
-      --wash: rgba(34, 29, 21, .055);
-      --shadow: rgba(39, 31, 19, .2);
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: "Trebuchet MS", Helvetica, sans-serif;
-    }
-    @media (prefers-color-scheme: dark) {
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>The Commission Chronicle — Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;0,900;1,600&display=swap" rel="stylesheet" />
+    <style>
       :root {
-        --paper: #1d1a16;
-        --ground: #11100d;
-        --ink: #eee5d5;
-        --muted: #beb3a3;
-        --rule: #e5daca;
-        --hairline: #625a50;
-        --red: #d65a4d;
-        --reverse: #171310;
-        --wash: rgba(255, 244, 224, .055);
-        --shadow: rgba(0, 0, 0, .42);
+        color-scheme: light dark;
+        --paper: #f2ecdd;
+        --ground: #d9cfbd;
+        --ink: #171511;
+        --muted: #5a554c;
+        --rule: #26231d;
+        --hairline: #aaa08f;
+        --red: #982920;
+        --red-deep: #7c1f16;
+        --reverse: #f7f0e2;
+        --wash: rgba(34, 29, 21, .05);
+        --shadow: rgba(39, 31, 19, .22);
+        --display: "Playfair Display", Georgia, "Times New Roman", serif;
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: "Trebuchet MS", Helvetica, Arial, sans-serif;
       }
-    }
-    * { box-sizing: border-box; }
-    html { background: var(--ground); }
-    body {
-      margin: 0;
-      min-width: 0;
-      background:
-        radial-gradient(circle at 13% 8%, rgba(45, 37, 25, .05) 0 1px, transparent 1.25px) 0 0 / 8px 8px,
-        var(--ground);
-      color: var(--ink);
-      font-family: var(--serif);
-      font-size: 17px;
-      line-height: 1.5;
-    }
-    .paper {
-      width: min(1180px, 100%);
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 18px clamp(18px, 4vw, 56px) 54px;
-      overflow: hidden;
-      background: var(--paper);
-      box-shadow: 0 0 42px var(--shadow);
-    }
-    .edition-line {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 16px;
-      padding: 0 0 8px;
-      border-bottom: 1px solid var(--rule);
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-    .edition-line span:nth-child(2) { text-align: center; }
-    .edition-line span:last-child { text-align: right; }
-    .masthead {
-      padding: 16px 0 11px;
-      border-bottom: 5px double var(--rule);
-      text-align: center;
-    }
-    .masthead h1 {
-      margin: 0;
-      font-size: clamp(43px, 8.4vw, 91px);
-      font-weight: 700;
-      line-height: .87;
-      letter-spacing: -.06em;
-    }
-    .masthead p {
-      margin: 10px 0 0;
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .21em;
-      text-transform: uppercase;
-    }
-    .newsbar {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 14px;
-      align-items: center;
-      margin-top: 11px;
-      padding: 7px 10px 6px;
-      background: var(--red);
-      color: var(--reverse);
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .newsbar::before, .newsbar::after { content: "◆"; font-size: 7px; }
-    .newsbar span { text-align: center; }
-    .lead-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(260px, .9fr);
-      gap: 30px;
-      padding: 24px 0 25px;
-      border-bottom: 2px solid var(--rule);
-    }
-    .lead { min-width: 0; }
-    .section-tag {
-      margin: 0 0 7px;
-      color: var(--red);
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-    .lead h2 {
-      max-width: 800px;
-      margin: 0;
-      font-size: clamp(43px, 6.8vw, 76px);
-      line-height: .93;
-      letter-spacing: -.045em;
-    }
-    .deck {
-      max-width: 760px;
-      margin: 14px 0 10px;
-      font-size: clamp(20px, 2.3vw, 27px);
-      line-height: 1.2;
-    }
-    .byline {
-      margin: 12px 0 16px;
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-    .story-copy {
-      max-width: 760px;
-      columns: 2 260px;
-      column-gap: 28px;
-      column-rule: 1px solid var(--hairline);
-    }
-    .story-copy p { margin: 0 0 1em; }
-    .story-copy p:first-child::first-letter {
-      float: left;
-      margin: .05em .08em 0 0;
-      color: var(--red);
-      font-size: 4.7em;
-      font-weight: 700;
-      line-height: .72;
-    }
-    .side-desk {
-      min-width: 0;
-      padding-left: 24px;
-      border-left: 1px solid var(--rule);
-    }
-    .desk-title {
-      margin: 0;
-      padding: 7px 8px 6px;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: var(--sans);
-      font-size: 11px;
-      letter-spacing: .15em;
-      text-align: center;
-      text-transform: uppercase;
-    }
-    .brief { padding: 16px 0 17px; border-bottom: 1px solid var(--hairline); }
-    .brief:last-child { border-bottom: 0; }
-    .brief h3 {
-      margin: 3px 0 7px;
-      font-size: 27px;
-      line-height: 1.02;
-    }
-    .brief p:last-child { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.38; }
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 18px;
-      margin: 24px 0 13px;
-      padding-bottom: 7px;
-      border-bottom: 4px solid var(--rule);
-    }
-    .section-head h2 { margin: 0; font-size: 34px; line-height: 1; }
-    .section-head span {
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-align: right;
-      text-transform: uppercase;
-    }
-    .news-grid {
-      display: grid;
-      grid-template-columns: 1.12fr .9fr .98fr;
-      border-bottom: 2px solid var(--rule);
-    }
-    .article {
-      min-width: 0;
-      padding: 5px 20px 24px;
-      border-left: 1px solid var(--hairline);
-    }
-    .article:first-child { padding-left: 0; border-left: 0; }
-    .article:last-child { padding-right: 0; }
-    .article h3 { margin: 4px 0 9px; font-size: 30px; line-height: 1.04; }
-    .article p { margin: 0 0 11px; }
-    .article .dateline {
-      color: var(--red);
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-    /* Sit-Down */
-    .sitdown { padding-bottom: 8px; border-bottom: 2px solid var(--rule); }
-    .sitdown-head { text-align: center; padding: 6px 0 4px; }
-    .sitdown-head h3 { margin: 0; font-size: clamp(38px, 5.5vw, 58px); line-height: .95; letter-spacing: -.03em; }
-    .sitdown-head .subhead { margin: 8px 0 0; font-size: 20px; font-style: italic; }
-    .sitdown-head .intro { margin: 8px 0 0; color: var(--muted); font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-    .qa { max-width: 820px; margin: 0 auto; padding: 14px 0 2px; }
-    .qa + .qa { border-top: 1px solid var(--hairline); }
-    .qa .q { margin: 0 0 6px; font-weight: 700; }
-    .qa .q span, .qa .a span { color: var(--red); font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .08em; }
-    .qa .a { margin: 0 0 12px; }
-    .sitdown-close { max-width: 820px; margin: 10px auto 0; padding-top: 12px; border-top: 1px solid var(--hairline); text-align: center; font-size: 19px; }
-    .sitdown-note { max-width: 820px; margin: 12px auto 14px; color: var(--muted); font-family: var(--sans); font-size: 11px; line-height: 1.5; }
-    .sitdown-note strong { color: var(--ink); }
-    /* Court Docket */
-    .docket { border-bottom: 2px solid var(--rule); padding-bottom: 20px; }
-    .case { padding: 16px 0 18px; border-bottom: 1px solid var(--hairline); }
-    .case:last-of-type { border-bottom: 0; }
-    .case-status { margin: 0 0 4px; color: var(--red); font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .case-name { margin: 0 0 6px; font-size: clamp(28px, 4vw, 40px); line-height: 1.02; letter-spacing: -.02em; }
-    .case-charge { margin: 0 0 8px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .case p { margin: 0 0 8px; max-width: 900px; }
-    .case-counsel { color: var(--muted); font-family: var(--sans); font-size: 11px; font-weight: 600; }
-    .docket-empty { margin: 4px 0 0; font-style: italic; color: var(--muted); }
-    /* State of the City */
-    .powermap { border-bottom: 2px solid var(--rule); padding-bottom: 20px; }
-    .band { padding: 12px 0 4px; }
-    .band + .band { border-top: 1px solid var(--hairline); margin-top: 8px; }
-    .band-title { margin: 0 0 8px; color: var(--red); font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
-    .power-line { margin: 0 0 7px; font-size: 18px; line-height: 1.35; }
-    .power-line strong { font-weight: 700; }
-    .power-line .note { color: var(--muted); font-size: 15px; }
-    /* Week in Numbers */
-    .numbers { border-bottom: 2px solid var(--rule); padding-bottom: 18px; }
-    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; text-align: center; }
-    .stat { padding: 10px 12px 6px; border-left: 1px solid var(--hairline); }
-    .stat:first-child { border-left: 0; }
-    .stat .num { display: block; font-size: clamp(44px, 6vw, 64px); font-weight: 700; line-height: .9; }
-    .stat .label { display: block; margin-top: 7px; font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .season-line { margin: 14px 0 0; padding-top: 11px; border-top: 1px solid var(--hairline); text-align: center; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
-    .season-line span { color: var(--red); }
-    /* Letters */
-    .letters { border-bottom: 2px solid var(--rule); padding-bottom: 20px; max-width: 820px; }
-    .letters p { margin: 0 0 11px; font-size: 18px; line-height: 1.45; }
-    /* Classifieds */
-    .classifieds {
-      margin-top: 27px;
-      padding: 12px 0 18px;
-      border-top: 5px double var(--rule);
-      border-bottom: 5px double var(--rule);
-    }
-    .classifieds-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 11px;
-      font-family: var(--sans);
-      text-transform: uppercase;
-    }
-    .classifieds-head h2 { margin: 0; font-size: 28px; line-height: 1; letter-spacing: .04em; }
-    .classifieds-head span { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
-    .classifieds-skip { margin: 4px 0 2px; text-align: center; font-style: italic; color: var(--muted); font-size: 17px; }
-    .reporting {
-      margin-top: 26px;
-      padding: 11px 14px 12px;
-      border-top: 5px double var(--rule);
-      border-bottom: 1px solid var(--rule);
-      text-align: center;
-    }
-    .reporting h2 {
-      margin: 0 0 6px;
-      font-family: var(--sans);
-      font-size: 10px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-    .reporting p {
-      margin: 0;
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1.65;
-    }
-    .editor-note {
-      margin-top: 18px;
-      padding-top: 12px;
-      border-top: 1px solid var(--hairline);
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 11px;
-      line-height: 1.45;
-    }
-    .editor-note strong { color: var(--ink); }
-    .footer-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      margin-top: 15px;
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-    @media (max-width: 790px) {
-      .paper { padding: 14px 17px 42px; }
-      .edition-line { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .edition-line span:nth-child(2) { display: none; }
-      .lead-layout { grid-template-columns: 1fr; gap: 24px; }
-      .lead h2 { font-size: clamp(43px, 14vw, 64px); }
-      .story-copy { columns: 1; }
-      .side-desk { padding: 20px 0 0; border: 0; border-top: 1px solid var(--rule); }
-      .news-grid { grid-template-columns: 1fr; }
-      .article, .article:first-child, .article:last-child {
-        padding: 18px 0;
-        border: 0;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #1d1a16;
+          --ground: #11100d;
+          --ink: #eee5d5;
+          --muted: #beb3a3;
+          --rule: #e5daca;
+          --hairline: #625a50;
+          --red: #d65a4d;
+          --red-deep: #d65a4d;
+          --reverse: #171310;
+          --wash: rgba(255, 244, 224, .05);
+          --shadow: rgba(0, 0, 0, .45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html {
+        background: var(--ground);
+        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 13% 8%, rgba(45, 37, 25, .05) 0 1px, transparent 1.25px) 0 0 / 8px 8px,
+          var(--ground);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 17px;
+        line-height: 1.55;
+      }
+      .paper {
+        width: min(1120px, 100%);
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 20px clamp(18px, 4.5vw, 60px) 0;
+        background: var(--paper);
+        box-shadow: 0 0 42px var(--shadow);
+      }
+
+      /* ---------- edition line ---------- */
+      .edition-line {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 14px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--rule);
+        font-family: var(--sans);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+      }
+      .edition-line span:nth-child(2) { text-align: center; }
+      .edition-line span:last-child { text-align: right; }
+
+      /* ---------- masthead ---------- */
+      .masthead {
+        padding: 20px 0 14px;
+        text-align: center;
+      }
+      .masthead .rule-top {
+        border-top: 3px solid var(--red);
+        border-bottom: 1px solid var(--red);
+        height: 5px;
+        margin: 0 auto 18px;
+        max-width: 560px;
+      }
+      .masthead h1 {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 900;
+        font-size: clamp(38px, 7.6vw, 84px);
+        line-height: .95;
+        letter-spacing: -.015em;
+        text-transform: uppercase;
+      }
+      .folio {
+        margin: 12px 0 0;
+        font-family: var(--serif);
+        font-size: clamp(17px, 2.4vw, 23px);
+        font-style: italic;
+      }
+      .masthead .rule-bottom {
+        border-top: 1px solid var(--red);
+        border-bottom: 3px solid var(--red);
+        height: 5px;
+        margin: 16px auto 0;
+        max-width: 560px;
+      }
+      .tagline {
+        margin: 12px 0 0;
+        font-family: var(--sans);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* ---------- nav ---------- */
+      nav.desks {
+        margin-top: 16px;
+        padding: 10px 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav.desks ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 0;
+      }
+      nav.desks li {
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+      }
+      nav.desks li + li::before {
+        content: "·";
+        margin: 0 14px;
+        color: var(--red);
+      }
+      nav.desks a {
+        color: var(--ink);
+        text-decoration: none;
+        padding: 2px 0;
+      }
+      nav.desks a:hover, nav.desks a:focus-visible {
+        color: var(--red);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* ---------- latest edition panel ---------- */
+      .latest {
+        margin-top: 26px;
+        border: 1.5px solid var(--red);
+        padding: 5px;
+      }
+      .latest-inner {
+        border: 1px solid var(--red);
+        padding: clamp(20px, 4vw, 40px) clamp(18px, 4.5vw, 44px) clamp(22px, 4vw, 36px);
+      }
+      .latest-kicker {
+        margin: 0 0 10px;
+        color: var(--red);
+        font-family: var(--sans);
+        font-size: clamp(13px, 2vw, 17px);
+        font-weight: 700;
+        letter-spacing: .04em;
+      }
+      .latest h2 {
+        margin: 0;
+        max-width: 15ch;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: clamp(38px, 6.4vw, 68px);
+        line-height: 1.02;
+        letter-spacing: -.01em;
+      }
+      .latest .deck {
+        margin: 16px 0 0;
+        max-width: 62ch;
+        font-size: clamp(17px, 2.2vw, 20px);
+        line-height: 1.5;
+      }
+      .latest .also {
+        margin: 14px 0 0;
+        max-width: 62ch;
+        color: var(--muted);
+        font-style: italic;
+        font-size: 16px;
+      }
+      .read-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: var(--red-deep);
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .02em;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .read-link:hover, .read-link:focus-visible { color: var(--ink); }
+      .next-line {
+        margin: 16px 0 0;
+        padding-top: 14px;
         border-top: 1px solid var(--hairline);
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: .06em;
+        color: var(--muted);
       }
-      .article:first-child { border-top: 0; }
-      .section-head { align-items: flex-end; }
-      .section-head span { max-width: 128px; }
-      .classifieds-head { align-items: flex-end; }
-      .classifieds-head span { max-width: 120px; text-align: right; }
-      .numbers-grid { grid-template-columns: 1fr 1fr; }
-      .stat { border-left: 0; border-top: 1px solid var(--hairline); padding: 14px 8px 10px; }
-      .stat:nth-child(-n+2) { border-top: 0; }
-      .stat:nth-child(even) { border-left: 1px solid var(--hairline); }
-      .footer-line { flex-direction: column; }
-    }
-    @media (max-width: 410px) {
-      .masthead h1 { font-size: 41px; }
-      .newsbar { gap: 7px; font-size: 9px; }
-      .lead h2 { font-size: 44px; }
-      .deck { font-size: 20px; }
-    }
-    @media print {
-      html, body { background: #fff; }
-      .paper { width: 100%; max-width: none; box-shadow: none; }
-    }
-  </style>
-</head>
-<body>
-  <main class="paper">
-    <div class="edition-line" aria-label="Edition details">
-      <span>Wednesday, October 14, 2026</span>
-      <span>Weekly Edition</span>
-      <span>Los Santos • GTA Roleplay</span>
-    </div>
+      .next-line strong { color: var(--ink); }
 
-    <header class="masthead">
-      <h1>The Commission Chronicle</h1>
-      <p>Power, business &amp; the underworld</p>
-    </header>
+      /* ---------- section heads ---------- */
+      .section-head {
+        margin: 44px 0 0;
+        padding-top: 18px;
+        border-top: 2px solid var(--rule);
+      }
+      .section-head h2 {
+        margin: 0;
+        font-family: var(--display);
+        font-weight: 800;
+        font-size: clamp(30px, 4.6vw, 44px);
+        line-height: 1.05;
+      }
+      .section-head .standfirst {
+        margin: 8px 0 0;
+        max-width: 66ch;
+        color: var(--muted);
+        font-size: 16px;
+      }
 
-    <div class="newsbar"><span>Verdict claimed in the Vencini case — bloc draws blood — ceasefire on the board</span></div>
+      /* ---------- inside the edition ---------- */
+      .contents {
+        margin: 22px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 44px;
+      }
+      .contents li {
+        padding: 11px 0;
+        border-bottom: 1px solid var(--hairline);
+        display: flex;
+        gap: 16px;
+        align-items: baseline;
+      }
+      .contents .desk {
+        flex: 0 0 118px;
+        color: var(--red);
+        font-family: var(--sans);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+        padding-top: 3px;
+      }
+      .contents .story {
+        font-size: 16.5px;
+        line-height: 1.35;
+      }
 
-    <section class="lead-layout" aria-labelledby="lead-headline">
-      <article class="lead">
-        <p class="section-tag">Lead story</p>
-        <h2 id="lead-headline">Not Guilty: A Vencini Associate Walks</h2>
-        <p class="deck">The week's most-watched courtroom fight ended in an acquittal — by the defendant's own account.</p>
-        <p class="byline">City Desk • Filed Wednesday morning</p>
-        <div class="story-copy">
-          <p>The city judged him, and by his account, the jury said not guilty. In a Wednesday-morning post, a Vencini associate facing homicide charges announced that he had walked out of his first trial a free man — closing the case that has dominated the city for a week.</p>
-          <p>The verdict, if his account holds, lands a day after the bond fight his defense counsel had scheduled for Tuesday, October 13. The counsel had framed Tuesday as the start of a two-front battle: the fight for bond, and a bid to hold the city's police accountable over a triple stabbing the defendant says he suffered while in custody.</p>
-          <p>No independent account of the hearing's outcome had surfaced by press time. The acquittal is claimed by the defendant himself, in a post heavy on vindication: the headlines will talk, he wrote, but the story continues.</p>
+      /* ---------- the beat ---------- */
+      .beats {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 34px;
+      }
+      .beat { border-top: 3px solid var(--red); padding-top: 12px; }
+      .beat h3 {
+        margin: 0;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+      }
+      .beat p { margin: 8px 0 0; font-size: 16px; }
+
+      /* ---------- archive ---------- */
+      .archive-group { margin-top: 24px; }
+      .archive-group h3 {
+        margin: 0 0 4px;
+        color: var(--red);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: .08em;
+      }
+      .archive-list { margin: 0; padding: 0; list-style: none; }
+      .archive-list li { border-bottom: 1px solid var(--hairline); }
+      .archive-list a, .archive-list .row {
+        display: grid;
+        grid-template-columns: 128px 1fr auto;
+        gap: 18px;
+        align-items: baseline;
+        padding: 13px 2px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .archive-list a:hover .headline,
+      .archive-list a:focus-visible .headline {
+        color: var(--red);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .archive-list .date {
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .archive-list .headline {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(17px, 2.4vw, 21px);
+        line-height: 1.25;
+      }
+      .archive-list .mark {
+        font-family: var(--sans);
+        font-size: 11px;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .archive-list a .mark { color: var(--red); font-weight: 700; }
+
+      /* ---------- colophon ---------- */
+      footer {
+        margin-top: 48px;
+        border-top: 1px solid var(--red);
+        padding: 4px 0 0;
+      }
+      .colophon {
+        border-top: 3px solid var(--red);
+        padding: 16px 0 30px;
+        text-align: center;
+        font-family: var(--sans);
+        font-size: 11.5px;
+        letter-spacing: .05em;
+        color: var(--muted);
+      }
+      .colophon p { margin: 4px 0; }
+      .colophon a { color: var(--red-deep); text-decoration: underline; text-underline-offset: 3px; }
+      .colophon a:hover { color: var(--ink); }
+
+      /* ---------- small screens ---------- */
+      @media (max-width: 720px) {
+        .contents { grid-template-columns: 1fr; }
+        .beats { grid-template-columns: 1fr; gap: 22px; }
+        .archive-list a, .archive-list .row {
+          grid-template-columns: 1fr auto;
+          grid-template-areas: "date mark" "headline headline";
+          row-gap: 3px;
+        }
+        .archive-list .date { grid-area: date; }
+        .archive-list .headline { grid-area: headline; }
+        .archive-list .mark { grid-area: mark; }
+        .edition-line span:nth-child(2) { display: none; }
+        .edition-line { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="paper">
+
+      <div class="edition-line">
+        <span>Weekly Edition</span>
+        <span>Los Santos</span>
+        <span>Every Wednesday</span>
+      </div>
+
+      <header class="masthead">
+        <div class="rule-top" aria-hidden="true"></div>
+        <h1>The Commission Chronicle</h1>
+        <p class="folio">Offices at La Mesa</p>
+        <div class="rule-bottom" aria-hidden="true"></div>
+        <p class="tagline">Power, business &amp; the underworld</p>
+      </header>
+
+      <nav class="desks" aria-label="Sections">
+        <ul>
+          <li><a href="#latest">Latest Edition</a></li>
+          <li><a href="#inside">Inside</a></li>
+          <li><a href="#beat">Our Beat</a></li>
+          <li><a href="#archive">The Archive</a></li>
+        </ul>
+      </nav>
+
+      <main>
+        <section class="latest" id="latest" aria-labelledby="latest-head">
+          <div class="latest-inner">
+            <p class="latest-kicker">Latest Edition — Wednesday, October 14, 2026</p>
+            <h2 id="latest-head">Not Guilty: A Vencini Associate Walks</h2>
+            <p class="deck">The week's most-watched courtroom fight ended in an acquittal — by the defendant's own account. The Chronicle reports the claim as it was made, and notes the court itself has not proclaimed it.</p>
+            <p class="also">Also in this edition: the bloc draws blood, a ceasefire lands on the board, the BayCity table is reshuffled, and the Sit-Down returns.</p>
+            <a class="read-link" href="2026-10-14/">Read the full edition →</a>
+            <p class="next-line" id="next-edition">Next edition: <strong>Wednesday, October 21, 2026</strong> — on the stands Wednesday morning.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="inside-head">
+          <div class="section-head" id="inside">
+            <h2 id="inside-head">Inside the Latest Edition</h2>
+            <p class="standfirst">The October 14 edition, desk by desk.</p>
+          </div>
+          <ul class="contents">
+            <li><span class="desk">City Desk</span><span class="story">The Bloc Draws Blood</span></li>
+            <li><span class="desk">City Desk</span><span class="story">Ceasefire on the Board</span></li>
+            <li><span class="desk">City Desk</span><span class="story">Rozay Strikes Larocca</span></li>
+            <li><span class="desk">City Desk</span><span class="story">A Sicario Falls</span></li>
+            <li><span class="desk">City Desk</span><span class="story">The BayCity Table, Reshuffled</span></li>
+            <li><span class="desk">City Desk</span><span class="story">Morello's Loud Week</span></li>
+            <li><span class="desk">The Sit-Down</span><span class="story">The Marzoni Don — eight questions, answered in full</span></li>
+            <li><span class="desk">Court Docket</span><span class="story">The People v. the Vencini Defendant</span></li>
+            <li><span class="desk">The Editorial</span><span class="story">One Commission for All?</span></li>
+            <li><span class="desk">Standing</span><span class="story">State of the City · The Week in Numbers · Letters to the Commission · Classifieds</span></li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="beat-head">
+          <div class="section-head" id="beat">
+            <h2 id="beat-head">Our Beat</h2>
+            <p class="standfirst">The Chronicle covers the city on three desks. Claims are reported as claims; the paper certifies nothing it cannot stand behind.</p>
+          </div>
+          <div class="beats">
+            <div class="beat">
+              <h3>Power</h3>
+              <p>Who holds the city — the families, the commissions, and every claim to a seat at the table.</p>
+            </div>
+            <div class="beat">
+              <h3>Business</h3>
+              <p>The money underneath it — the fronts, the launches, and the deals done in the open.</p>
+            </div>
+            <div class="beat">
+              <h3>The Underworld</h3>
+              <p>The week's record — hits claimed, cases heard, and the names that surface.</p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="archive-head">
+          <div class="section-head" id="archive">
+            <h2 id="archive-head">The Archive</h2>
+            <p class="standfirst">Every public edition, kept on file. An edition is never rewritten once it has gone to press.</p>
+          </div>
+          <div class="archive-group">
+            <h3>October 2026</h3>
+            <ul class="archive-list">
+              <li>
+                <a href="2026-10-14/">
+                  <span class="date">Oct 14, 2026</span>
+                  <span class="headline">Not Guilty: A Vencini Associate Walks</span>
+                  <span class="mark">Latest →</span>
+                </a>
+              </li>
+              <li>
+                <div class="row">
+                  <span class="date">Oct 10, 2026</span>
+                  <span class="headline">Vencini Case Widens on Two Fronts</span>
+                  <span class="mark">First Edition</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="colophon">
+          <p>© 2026 The Commission Chronicle · All Rights Reserved · Offices at La Mesa, Los Santos</p>
+          <p>New editions every Wednesday · Read the paper at <a href="2026-10-14/">commissionchronicle.github.io</a></p>
         </div>
-      </article>
+      </footer>
 
-      <aside class="side-desk" aria-labelledby="city-desk-title">
-        <h2 class="desk-title" id="city-desk-title">City Desk</h2>
-        <article class="brief">
-          <p class="section-tag">Triads</p>
-          <h3>The Bloc Draws Blood</h3>
-          <p>Forty-eight hours after announcing a formal alliance with the Irish Mob — the first non-mafia power bloc on the map — the Wo Hop To Triads posted a gangland hit killing a Galante associate, carried out by two Triad enforcers. A day earlier the Triads had claimed the &ldquo;Siberian Accord,&rdquo; a revenge hit they said was years in the making against a rival set. The bloc is moving faster than anyone else on the board.</p>
-        </article>
-        <article class="brief">
-          <p class="section-tag">Capone</p>
-          <h3>Ceasefire on the Board</h3>
-          <p>Capone and Lucianno announced a ceasefire agreement on October 12, publishing their hierarchy in full: a Boss and his Underboss at the table. A day later came the house rule — &ldquo;No dope on my turf&rdquo; — with the family table beside it. Earlier in the week the family had claimed the assassination of a PYC associate. Diplomacy and death, in that order.</p>
-        </article>
-        <article class="brief">
-          <p class="section-tag">Rozay</p>
-          <h3>Rozay Strikes Larocca</h3>
-          <p>A Rozay family council member posted the Rozay Crime Family's claimed whack of a Larocca associate on October 12. No independent account of the hit had surfaced by press time.</p>
-        </article>
-        <article class="brief">
-          <p class="section-tag">Cartel</p>
-          <h3>A Sicario Falls</h3>
-          <p>The Boss Cartel announced October 12 that federal agencies had taken one of their sicarios into custody. The post carried the defiant line that one man down doesn't mean the empire falls. No counsel or hearing date has been named.</p>
-        </article>
-      </aside>
-    </section>
-
-    <div class="section-head">
-      <h2>Below the Fold</h2>
-      <span>New arrivals and old pressure</span>
     </div>
 
-    <section class="news-grid" aria-label="Below the fold stories">
-      <article class="article">
-        <p class="dateline">Family Wire</p>
-        <h3>The BayCity Table, Reshuffled</h3>
-        <p>Carvelli posted its &ldquo;Upper Echelon&rdquo; hierarchy on Saturday — Don, underboss, consigliere, capo and made men — conspicuously without the name the city is still talking about: the man the family publicly cut last week, now running under a new banner with another outfit. The Carvelli name stays; the bloodline shrinks.</p>
-      </article>
-
-      <article class="article">
-        <p class="dateline">New Names on the Map</p>
-        <h3>Morello's Loud Week</h3>
-        <p>Morello published its LCN table on October 13 — underboss, capos and soldiers of interest — and a day earlier an &ldquo;FIB surveillance&rdquo; notice claimed a longtime Morello-linked figure had resurfaced in Los Santos after an extended recovery out of state.</p>
-        <p>Meanwhile the Lucchese account posted October 13 that Bonanno soldiers murdered a Morello enforcer outside his office — a claimed hit that heats the Lucchese-vs-Morello front first teased on October 11.</p>
-      </article>
-
-      <article class="article">
-        <p class="dateline">City Politics</p>
-        <h3>One Commission for All?</h3>
-        <p>In a string of Tuesday stories, the Wo Hop To Triads floated a &ldquo;Unicom&rdquo; — a single unified commission for mafia, MCs, street gangs, cartels and milsim outfits, each defined by its own stipulations. Days after signing the city's first non-mafia alliance, the bloc is now proposing to reorganize the entire underworld.</p>
-      </article>
-    </section>
-
-    <div class="section-head">
-      <h2>The Sit-Down</h2>
-      <span>A weekly conversation with the figures running Los Santos</span>
-    </div>
-
-    <section class="sitdown" aria-labelledby="sitdown-headline">
-      <div class="sitdown-head">
-        <h3 id="sitdown-headline">The Marzoni Don</h3>
-        <p class="subhead">Founder and Don of the Marzoni Famiglia</p>
-        <p class="intro">Answered via DM, October 2026 — the Chronicle's first Sit-Down</p>
-      </div>
-
-      <div class="qa">
-        <p class="q"><span>Q:</span> In character, for the record — introduce yourself: your name in the life, and your position in the family.</p>
-        <p class="a"><span>A:</span> &ldquo;I am Paul 'Pope' Marzoni and I am the founder and Don of the Marzoni Famiglia. I picked the sobriquet Pope because I believe in diplomacy versus random acts of violence, and every action must have a purpose. And as an OG of the mafia community — starting from Xbox in 2013 and going to PSN in 2016, and after a second return to the Xbox side of things, I've remained on the PSN side since 2022.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> Every family has an origin story. What's yours — how did this family come up in Los Santos?</p>
-        <p class="a"><span>A:</span> &ldquo;Marzoni's origin story is simple, really. As I stated before, I've been in the community a very long time, and I wanted to build something that isn't based on the new age ragebait tactics but is refined like the community used to be before. The FPS feature of GTA 5 ruined things, because I believe in the Vegas mantra — what happens on GTA stays there. So I wanted to bring people together to form an old fashioned style crime family which doesn't use hits as aggressively as others. We act with purpose. We are a brotherhood for all mature, civil-minded individuals, and we respect our members' real life commitments. As long as you carry your weight in the family we don't have an issue, because I believe you're either born with loyalty or you're not. Our war record speaks for itself — we shut Genovese down after fighting them legit and not breaking mafia community rules, and we fought LaNinna to a standstill, but we work together and aren't petty, unlike the crews of today using Instagram to beef.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> What's the biggest misconception people have about your family?</p>
-        <p class="a"><span>A:</span> &ldquo;Marzoni's biggest misconception is we don't let emotions fuel our actions — meaning we do not start wars, we finish them.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> The city's been loud lately — alliances, hits, fallouts. Where does your family stand in all of it?</p>
-        <p class="a"><span>A:</span> &ldquo;Honestly, me and my family are keeping our eyes peeled as everyone wraps up GTA 5, but we are excited to solidify our legacy in Vice City. But I think that people need to mature before GTA 6 drops — get all the FPS angst about scorerecords etc. out the way, because 6 is gonna be different.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> Walk me through a night that defines what your family is about.</p>
-        <p class="a"><span>A:</span> &ldquo;A night amongst the Marzoni Famiglia is marked by professionalism, a chill atmosphere — because GTA is a game at the end of the day, so we don't let anything that other families do affect us. Back in LS we rolled deep with heists, hits and turf wars and business sells, but with LS on the way out, Vice City is the biggest and best opportunity for advancement for us. We stay focused on Marzoni only.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> Loyalty gets talked about a lot in this life. What does it actually look like day to day?</p>
-        <p class="a"><span>A:</span> &ldquo;Day to day or night to night, we either were training, meeting with other families, or doing hits against blacklisted families, or heists back on 5 — but for 6 we'll hit the ground running. Or business sells, or meetings.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> What's the one rule in your family that nobody breaks — and what happens if they do?</p>
-        <p class="a"><span>A:</span> &ldquo;Now we have our golden rules, mainly to keep everything about GTA on PSN, and we NEVER go personal. When the headset goes on we expect our members to be professional, chill — just enjoy the game and the community and the Marzoni Famiglia as a whole.&rdquo;</p>
-      </div>
-      <div class="qa">
-        <p class="q"><span>Q:</span> Last one — where is this family a year from now?</p>
-        <p class="a"><span>A:</span> &ldquo;In regards to a year: we've celebrated our one year since we established ourselves in October of 2025 anniversary, and will reunite and reopen for business in Vice City. All I can say is a Golden Legacy is coming to Vice City and Leonida as a whole. Eredità d'oro is our motto for a reason.&rdquo;</p>
-      </div>
-
-      <p class="sitdown-close">In conclusion — &ldquo;I couldn't have done it without my members.&rdquo;</p>
-      <p class="sitdown-note"><strong>Editor's note:</strong> The Sit-Down runs interviewees' answers in full, as promised. Claims about other families in the answers above are the interviewee's own. The Chronicle's right-of-reply door is open and will be held for a later edition.</p>
-    </section>
-
-    <div class="section-head">
-      <h2>Court Docket</h2>
-      <span>Active cases before the courts of Los Santos</span>
-    </div>
-
-    <section class="docket" aria-label="Court docket">
-      <article class="case">
-        <p class="case-status">Verdict — Not Guilty</p>
-        <h3 class="case-name">The People v. the Vencini Defendant</h3>
-        <p class="case-charge">Homicide — acquittal claimed by defendant, October 14</p>
-        <p>The bond fight scheduled for Tuesday, October 13 ended, by the defendant's account, in a full acquittal. A Vencini associate announced Wednesday morning that the jury found him not guilty in his first homicide case. No independent account of the hearing's outcome had surfaced by press time.</p>
-        <p class="case-counsel">Counsel: Defense counsel — no further dates announced</p>
-      </article>
-      <article class="case">
-        <p class="case-status">In Custody</p>
-        <h3 class="case-name">The Boss Cartel — Unnamed Sicario</h3>
-        <p class="case-charge">Held by federal agencies — no charges named</p>
-        <p>The cartel announced October 12 that federal agencies had taken one of its sicarios into custody. No counsel or hearing date had been named by press time.</p>
-        <p class="case-counsel">Counsel unannounced — next date unknown</p>
-      </article>
-      <p class="docket-empty">No other active cases on the docket this week.</p>
-    </section>
-
-    <div class="section-head">
-      <h2>State of the City</h2>
-      <span>Alliances and open conflicts — where everybody stands</span>
-    </div>
-
-    <section class="powermap" aria-label="State of the city">
-      <div class="band">
-        <p class="band-title">Allied</p>
-        <p class="power-line"><strong>Wo Hop To Triads</strong> ⇄ <strong>Irish Mob</strong> <span class="note">— formal alliance, Oct 10</span></p>
-        <p class="power-line"><strong>Capone</strong> ⇄ <strong>Lucianno</strong> <span class="note">— ceasefire agreement, Oct 12</span></p>
-      </div>
-      <div class="band">
-        <p class="band-title">At War</p>
-        <p class="power-line"><strong>Wo Hop To Triads</strong> → <strong>Galante</strong> <span class="note">— Galante associate whack claimed, Oct 12</span></p>
-        <p class="power-line"><strong>Wo Hop To Triads</strong> → <strong>Warriors of Hell MC</strong> <span class="note">— &ldquo;Siberian Accord&rdquo; revenge hit, Oct 11</span></p>
-        <p class="power-line"><strong>Rozay</strong> → <strong>Larocca</strong> <span class="note">— Larocca associate whack claimed, Oct 12</span></p>
-        <p class="power-line"><strong>Capone</strong> → <strong>PYC Family</strong> <span class="note">— PYC associate hit claimed, Oct 11</span></p>
-        <p class="power-line"><strong>Bonanno</strong> → <strong>Morello</strong> <span class="note">— Morello enforcer hit claimed, Oct 13</span></p>
-      </div>
-      <div class="band">
-        <p class="band-title">Watching</p>
-        <p class="power-line"><strong>Marzoni</strong> <span class="note">— eyes on Vice City; the don sits down with the Chronicle in this edition</span></p>
-        <p class="power-line"><strong>LaNinna</strong> <span class="note">— hierarchy public, quiet on the wire</span></p>
-        <p class="power-line"><strong>Barresi, Vittorio, Vitale</strong> <span class="note">— no public moves this week</span></p>
-      </div>
-    </section>
-
-    <div class="section-head">
-      <h2>The Week in Numbers</h2>
-      <span>The week, counted</span>
-    </div>
-
-    <section class="numbers" aria-label="The week in numbers">
-      <div class="numbers-grid">
-        <div class="stat"><span class="num">5</span><span class="label">Hits claimed</span></div>
-        <div class="stat"><span class="num">1</span><span class="label">Ceasefire signed</span></div>
-        <div class="stat"><span class="num">1</span><span class="label">Acquittal</span></div>
-        <div class="stat"><span class="num">1</span><span class="label">New name on the map</span></div>
-      </div>
-      <p class="season-line"><span>Season so far:</span> 5 hits claimed · 1 ceasefire · 1 acquittal · 1 new name on the map</p>
-    </section>
-
-    <div class="section-head">
-      <h2>Letters to the Commission</h2>
-      <span>From the mailbag</span>
-    </div>
-
-    <section class="letters" aria-label="Letters to the Commission">
-      <p>The Commission's mailbag is open. Letters, corrections, and things we should know — this is where they land.</p>
-      <p>Have something to say — or something the Commission should know? DM the notice board — the sharpest letters make the paper.</p>
-    </section>
-
-    <section class="classifieds" aria-labelledby="classifieds-title">
-      <div class="classifieds-head">
-        <h2 id="classifieds-title">Classifieds</h2>
-        <span>Recruitment notices</span>
-      </div>
-      <p class="classifieds-skip">Skipped this week — no family recruitment ad within the week.</p>
-    </section>
-
-    <aside class="reporting" aria-labelledby="reporting-title">
-      <h2 id="reporting-title">Reporting via</h2>
-      <p>Reporting via the family pages and public posts drawn on across the city, gathered before press time.</p>
-    </aside>
-
-    <div class="editor-note">
-      <strong>Editor's note:</strong> The Chronicle covers fictional, in-game GTA roleplay storylines — not real-world crime. Reports are attributed to the public posts and stories available before press time; silence is not treated as peace, and the paper prints only what it can verify.
-    </div>
-    <div class="footer-line">
-      <span>Vol. I • No. 2 — Wednesday Edition</span>
-      <span>Wednesday, October 14, 2026</span>
-    </div>
-  </main>
-</body>
+    <script>
+      // Point the "next edition" line at the coming Wednesday, so the
+      // front door never advertises a date that has already passed.
+      (function () {
+        var el = document.getElementById('next-edition');
+        if (!el) return;
+        var now = new Date();
+        var next = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var add = (3 - next.getDay() + 7) % 7; // days until Wednesday
+        next.setDate(next.getDate() + add);
+        var label = next.toLocaleDateString('en-US', {
+          weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+        });
+        var when = add === 0 ? 'on the stands this morning' : 'on the stands Wednesday morning';
+        el.innerHTML = 'Next edition: <strong>' + label + '</strong> — ' + when + '.';
+      })();
+    </script>
+  </body>
 </html>
