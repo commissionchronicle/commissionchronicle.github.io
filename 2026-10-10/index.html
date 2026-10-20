@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>The Commission Chronicle — October 10, 2026</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f2ecdd;
+      --ground: #d9cfbd;
+      --ink: #171511;
+      --muted: #5a554c;
+      --rule: #26231d;
+      --hairline: #aaa08f;
+      --red: #982920;
+      --mark: rgba(152, 41, 32, .22);
+      --reverse: #f7f0e2;
+      --shadow: rgba(39, 31, 19, .2);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Trebuchet MS", Helvetica, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #1d1a16;
+        --ground: #11100d;
+        --ink: #eee5d5;
+        --muted: #beb3a3;
+        --rule: #e5daca;
+        --hairline: #625a50;
+        --red: #d65a4d;
+        --mark: rgba(214, 90, 77, .38);
+        --reverse: #171310;
+        --shadow: rgba(0, 0, 0, .42);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--ground); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      background:
+        radial-gradient(circle at 13% 8%, rgba(45, 37, 25, .05) 0 1px, transparent 1.25px) 0 0 / 8px 8px,
+        var(--ground);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .sheet {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 18px clamp(18px, 4vw, 56px) 54px;
+      background: var(--paper);
+      box-shadow: 0 0 42px var(--shadow);
+    }
+
+    /* ---------- Archive masthead ---------- */
+    .archive-line {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 0 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .archive-line span:nth-child(2) { text-align: center; }
+    .archive-line span:last-child { text-align: right; }
+    .masthead {
+      padding: 16px 0 11px;
+      border-bottom: 5px double var(--rule);
+      text-align: center;
+    }
+    .masthead h1 {
+      margin: 0;
+      font-size: clamp(43px, 8.4vw, 91px);
+      font-weight: 700;
+      line-height: .87;
+      letter-spacing: -.06em;
+    }
+    .masthead p {
+      margin: 10px 0 0;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .21em;
+      text-transform: uppercase;
+    }
+    .archive-title {
+      margin-top: 26px;
+      text-align: center;
+    }
+    .archive-title .kicker {
+      margin: 0 0 6px;
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .archive-title h2 {
+      margin: 0;
+      font-size: clamp(34px, 5.4vw, 54px);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .archive-title p {
+      max-width: 620px;
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    /* ---------- Edition index ---------- */
+    .index-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 30px 0 4px;
+      padding-bottom: 7px;
+      border-bottom: 4px solid var(--rule);
+    }
+    .index-head h2 { margin: 0; font-size: 30px; line-height: 1; }
+    .index-head span {
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .index-list { list-style: none; margin: 0; padding: 0; }
+    .index-entry {
+      display: grid;
+      grid-template-columns: 190px 1fr auto;
+      gap: 20px;
+      align-items: baseline;
+      padding: 15px 2px 16px;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .index-entry .date {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .index-entry .date small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .11em;
+    }
+    .index-entry .lead-head {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.12;
+    }
+    .index-entry .lead-deck {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+    .index-entry a {
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--red);
+      padding-bottom: 2px;
+    }
+    .index-entry a:hover, .index-entry a:focus-visible { color: var(--ink); border-color: var(--ink); }
+
+    /* ---------- Archive search ---------- */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    .search-panel {
+      margin-top: 30px;
+      padding: 16px 18px 18px;
+      border: 2px solid var(--rule);
+    }
+    .search-form { display: flex; gap: 10px; }
+    .search-form input {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 4px;
+      border: 0;
+      border-bottom: 2px solid var(--rule);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 19px;
+    }
+    .search-form input::placeholder { color: var(--muted); }
+    .search-form input:focus { outline: none; border-bottom-color: var(--red); }
+    .search-form button {
+      padding: 8px 16px;
+      border: 2px solid var(--rule);
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .search-form button:hover, .search-form button:focus-visible { background: var(--red); border-color: var(--red); }
+    .search-form button.ghost { background: transparent; color: var(--ink); }
+    .search-form button.ghost:hover, .search-form button.ghost:focus-visible { background: transparent; color: var(--red); border-color: var(--red); }
+    .search-status {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .search-status:empty { margin: 0; }
+    .search-results { list-style: none; margin: 4px 0 0; padding: 0; }
+    .search-result { padding: 12px 2px 13px; border-bottom: 1px solid var(--hairline); }
+    .search-result:last-child { border-bottom: 0; padding-bottom: 2px; }
+    .search-result .sr-meta {
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .search-result .sr-head {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-decoration: none;
+    }
+    .search-result .sr-head:hover, .search-result .sr-head:focus-visible { color: var(--red); }
+    .search-result .sr-snippet { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.4; }
+    .search-result mark { background: var(--mark); color: inherit; padding: 0 1px; }
+    .flash { animation: search-flash 2.2s ease; }
+    @keyframes search-flash {
+      0%, 55% { background: var(--mark); }
+      100% { background: transparent; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .flash { animation: none; }
+    }
+
+    /* ---------- Archived edition ---------- */
+    .edition {
+      margin-top: 44px;
+      padding-top: 10px;
+      border-top: 5px double var(--rule);
+    }
+    .edition-banner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 6px 0 8px;
+      border-bottom: 1px solid var(--rule);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .edition-banner span:nth-child(2) { text-align: center; color: var(--red); }
+    .edition-banner span:last-child { text-align: right; }
+    .edition-nameplate {
+      padding: 14px 0 10px;
+      border-bottom: 5px double var(--rule);
+      text-align: center;
+    }
+    .edition-nameplate .name {
+      margin: 0;
+      font-size: clamp(34px, 6.4vw, 68px);
+      font-weight: 700;
+      line-height: .9;
+      letter-spacing: -.05em;
+    }
+    .edition-nameplate p {
+      margin: 8px 0 0;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .21em;
+      text-transform: uppercase;
+    }
+    .newsbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      margin-top: 11px;
+      padding: 7px 10px 6px;
+      background: var(--red);
+      color: var(--reverse);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .newsbar::before, .newsbar::after { content: "◆"; font-size: 7px; }
+    .newsbar span { text-align: center; }
+    .lead-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, .9fr);
+      gap: 30px;
+      padding: 24px 0 25px;
+      border-bottom: 2px solid var(--rule);
+    }
+    .lead { min-width: 0; }
+    .section-tag {
+      margin: 0 0 7px;
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .lead h3 {
+      max-width: 800px;
+      margin: 0;
+      font-size: clamp(40px, 6.4vw, 72px);
+      line-height: .93;
+      letter-spacing: -.045em;
+    }
+    .deck {
+      max-width: 760px;
+      margin: 14px 0 10px;
+      font-size: clamp(20px, 2.3vw, 27px);
+      line-height: 1.2;
+    }
+    .byline {
+      margin: 12px 0 16px;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .story-copy {
+      max-width: 760px;
+      columns: 2 260px;
+      column-gap: 28px;
+      column-rule: 1px solid var(--hairline);
+    }
+    .story-copy p { margin: 0 0 1em; }
+    .story-copy p:first-child::first-letter {
+      float: left;
+      margin: .05em .08em 0 0;
+      color: var(--red);
+      font-size: 4.7em;
+      font-weight: 700;
+      line-height: .72;
+    }
+    .side-desk {
+      min-width: 0;
+      padding-left: 24px;
+      border-left: 1px solid var(--rule);
+    }
+    .desk-title {
+      margin: 0;
+      padding: 7px 8px 6px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .brief { padding: 16px 0 17px; border-bottom: 1px solid var(--hairline); }
+    .brief:last-child { border-bottom: 0; }
+    .brief h4 {
+      margin: 3px 0 7px;
+      font-size: 27px;
+      line-height: 1.02;
+    }
+    .brief p:last-child { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.38; }
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 24px 0 13px;
+      padding-bottom: 7px;
+      border-bottom: 4px solid var(--rule);
+    }
+    .section-head h3 { margin: 0; font-size: 34px; line-height: 1; }
+    .section-head span {
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .9fr .98fr;
+      border-bottom: 2px solid var(--rule);
+    }
+    .article {
+      min-width: 0;
+      padding: 5px 20px 24px;
+      border-left: 1px solid var(--hairline);
+    }
+    .article:first-child { padding-left: 0; border-left: 0; }
+    .article:last-child { padding-right: 0; }
+    .article h4 { margin: 4px 0 9px; font-size: 30px; line-height: 1.04; }
+    .article p { margin: 0 0 11px; }
+    .article .dateline {
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .classifieds {
+      margin-top: 27px;
+      padding: 12px 0 18px;
+      border-top: 5px double var(--rule);
+      border-bottom: 5px double var(--rule);
+    }
+    .classifieds-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 11px;
+      font-family: var(--sans);
+      text-transform: uppercase;
+    }
+    .classifieds-head h3 { margin: 0; font-size: 28px; line-height: 1; letter-spacing: .04em; }
+    .classifieds-head span { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+    .ads {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 12px;
+    }
+    .ad {
+      position: relative;
+      min-width: 0;
+      padding: 17px 20px 16px;
+      border: 2px solid var(--rule);
+      text-align: center;
+    }
+    .ad::before, .ad::after {
+      content: "◆";
+      position: absolute;
+      top: 50%;
+      color: var(--hairline);
+      font-size: 8px;
+      transform: translateY(-50%);
+    }
+    .ad::before { left: 7px; }
+    .ad::after { right: 7px; }
+    .ad-label {
+      margin: 0 0 6px;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .ad h4 {
+      margin: 0;
+      font-size: clamp(26px, 3.1vw, 38px);
+      line-height: .95;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .ad p { max-width: 540px; margin: 9px auto 10px; font-size: 16px; line-height: 1.3; }
+    .requirements {
+      padding: 5px 7px 4px;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .reporting {
+      margin-top: 26px;
+      padding: 11px 14px 12px;
+      border-top: 5px double var(--rule);
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+    }
+    .reporting h3 {
+      margin: 0 0 6px;
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .reporting p {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+    .edition-foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 15px;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Sit-Down, docket & standing sections ---------- */
+    .sitdown-intro { margin: 2px 0 18px; text-align: center; }
+    .sitdown-intro h4 { margin: 0; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.05; }
+    .sitdown-intro p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .qa { columns: 2 300px; column-gap: 28px; column-rule: 1px solid var(--hairline); }
+    .qa p { margin: 0 0 1em; }
+    .qa .q { font-weight: 700; }
+    .closer {
+      max-width: 640px;
+      margin: 20px auto 0;
+      font-size: 21px;
+      font-style: italic;
+      line-height: 1.3;
+      text-align: center;
+    }
+    .note {
+      max-width: 780px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      text-align: center;
+    }
+    .case { padding: 15px 0 17px; border-bottom: 1px solid var(--hairline); }
+    .case-name { margin: 0 0 5px; font-size: 29px; line-height: 1.05; }
+    .case-charge {
+      margin: 0 0 9px;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .case p.body { margin: 0 0 8px; max-width: 880px; }
+    .case .counsel { margin: 0; color: var(--muted); font-size: 15px; }
+    .docket-empty { margin: 15px 0 0; color: var(--muted); font-style: italic; }
+    .powermap p { max-width: 920px; margin: 0 0 11px; }
+    .powermap .band {
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+    .numbers { padding: 4px 0 16px; border-bottom: 2px solid var(--rule); text-align: center; }
+    .numbers .strip { margin: 0; font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.3; }
+    .numbers .season { margin: 9px 0 0; color: var(--muted); font-size: 15px; }
+    .letters-copy { max-width: 880px; margin: 0; }
+    .classifieds-note { margin: 0; padding: 4px 0 2px; color: var(--muted); font-style: italic; text-align: center; }
+    .edition .editor-note { margin-top: 18px; }
+
+    /* ---------- Archive footer ---------- */
+    .archive-foot {
+      margin-top: 40px;
+      padding-top: 14px;
+      border-top: 5px double var(--rule);
+    }
+    .editor-note {
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .editor-note strong { color: var(--ink); }
+    .footer-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 14px;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 790px) {
+      .sheet { padding: 14px 17px 42px; }
+      .archive-line { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .archive-line span:nth-child(2) { display: none; }
+      .index-entry { grid-template-columns: 1fr; gap: 6px; }
+      .index-entry a { justify-self: start; }
+      .edition-banner { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .edition-banner span:nth-child(2) { display: none; }
+      .lead-layout { grid-template-columns: 1fr; gap: 24px; }
+      .lead h3 { font-size: clamp(40px, 13vw, 60px); }
+      .story-copy { columns: 1; }
+      .side-desk { padding: 20px 0 0; border: 0; border-top: 1px solid var(--rule); }
+      .news-grid { grid-template-columns: 1fr; }
+      .article, .article:first-child, .article:last-child {
+        padding: 18px 0;
+        border: 0;
+        border-top: 1px solid var(--hairline);
+      }
+      .article:first-child { border-top: 0; }
+      .section-head { align-items: flex-end; }
+      .section-head span { max-width: 128px; }
+      .ads { grid-template-columns: 1fr; }
+      .classifieds-head { align-items: flex-end; }
+      .classifieds-head span { max-width: 120px; text-align: right; }
+      .footer-line, .edition-foot { flex-direction: column; }
+    }
+    @media (max-width: 410px) {
+      .masthead h1 { font-size: 41px; }
+      .newsbar { gap: 7px; font-size: 9px; }
+      .deck { font-size: 20px; }
+    }
+    @media print {
+      html, body { background: #fff; }
+      .sheet { width: 100%; max-width: none; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <div class="archive-line" aria-label="Edition details">
+      <span>Saturday, October 10, 2026</span>
+      <span>Vol. I &bull; No. 1</span>
+      <span>Los Santos &bull; GTA Roleplay</span>
+    </div>
+
+    <header class="masthead">
+      <h1>The Commission Chronicle</h1>
+      <p>Power, business &amp; the underworld</p>
+    </header>
+
+    <article class="edition" id="edition-2026-10-10" aria-labelledby="lead-headline-2026-10-10">
+      <div class="edition-banner" aria-label="Edition details">
+        <span>Saturday, October 10, 2026</span>
+        <span>Archived Public Edition</span>
+        <span>Los Santos • GTA Roleplay</span>
+      </div>
+
+      <div class="edition-nameplate">
+        <p class="name">The Commission Chronicle</p>
+        <p>Power, business &amp; the underworld</p>
+      </div>
+
+      <div class="newsbar"><span>Breaking developments in the Vencini case</span></div>
+
+      <section class="lead-layout">
+        <div class="lead">
+          <p class="section-tag">Lead story</p>
+          <h3 id="lead-headline-2026-10-10">Vencini Case Widens on Two Fronts</h3>
+          <p class="deck">A street conflict and a homicide defense are now moving forward in parallel.</p>
+          <p class="byline">Commission Desk • Filed Saturday afternoon</p>
+          <div class="story-copy">
+            <p>A revenge attempt aimed at a Vencini associate failed Friday, widening the dispute around a closely watched homicide case.</p>
+            <p>The strike was attributed to the person previously identified as the alleged victim. The Vencini side supplied the only account available by press time.</p>
+            <p>A defense attorney has taken the associate’s case, formally answering allegations that until now had played out largely through family statements and street action.</p>
+            <p>The feud remains unresolved outside the courtroom while the legal challenge begins inside it.</p>
+          </div>
+        </div>
+
+        <aside class="side-desk" aria-label="City Desk briefs">
+          <h3 class="desk-title">City Desk</h3>
+          <div class="brief">
+            <p class="section-tag">Ironwood</p>
+            <h4>Black Iron Fist tie made explicit</h4>
+            <p>An Ironwood whack reel carried the message “Black Iron Fist sends our regards,” publicly linking the two organizations. A separate crew notice set the Ironwood standard: no wire transfers, only full duffels and clean exits.</p>
+          </div>
+          <div class="brief">
+            <p class="section-tag">LaNinna</p>
+            <h4>Family reveals its chain of command</h4>
+            <p>A LaNinna meeting notice identified a Don at the head of the family and an underboss directly beneath that office, providing the clearest public outline yet of the syndicate’s leadership.</p>
+          </div>
+        </aside>
+      </section>
+
+      <div class="section-head">
+        <h3>Underworld Report</h3>
+        <span>New organizations and family movement</span>
+      </div>
+
+      <section class="news-grid" aria-label="Secondary stories">
+        <div class="article">
+          <p class="dateline">Andolini Family</p>
+          <h4>Former Morello captain builds a new power center</h4>
+          <p>The Andolini family has emerged under a founder described as a former Morello captain, extending an old connection into a separate organization.</p>
+          <p>The new family reports a roster of more than 50 members. That claimed strength gives the Andolini arrival unusual weight among the week’s new names and immediately places the organization among the larger groups operating in public.</p>
+        </div>
+
+        <div class="article">
+          <p class="dateline">Chicago Outfit</p>
+          <h4>Another organization steps into public view</h4>
+          <p>The Chicago Outfit has surfaced as a new presence, posting whack footage as its first visible signal of activity.</p>
+          <p>The organization has not yet published a full hierarchy or alliance structure. Its early material nevertheless marks a deliberate entrance into the city’s crime-family field.</p>
+        </div>
+
+        <div class="article">
+          <p class="dateline">Rozay Family</p>
+          <h4>Council keeps the family banner visible</h4>
+          <p>A Rozay council member returned the family name to public view while an allied organization warned that it would not avoid a challenge.</p>
+          <p>The paired messages amounted to a show of unity after a busy overnight run, keeping the Rozay family active in the wider commission conversation while senior leadership maintained a lower profile.</p>
+        </div>
+      </section>
+
+      <section class="classifieds" aria-label="Classifieds">
+        <div class="classifieds-head">
+          <h3>Classifieds</h3>
+          <span>Recruitment notices</span>
+        </div>
+        <div class="ads">
+          <div class="ad">
+            <p class="ad-label">Marzoni Famiglia</p>
+            <h4>Are You Marzoni Material?</h4>
+            <p>Associates wanted for the family’s next chapter in Vice City. Come ready to earn your place.</p>
+            <div class="requirements">21+ &nbsp;•&nbsp; Mic required &nbsp;•&nbsp; PS5</div>
+          </div>
+          <div class="ad">
+            <p class="ad-label">Casella Crime Family</p>
+            <h4>Ambition Wanted</h4>
+            <p>Car meets. Money-making. A chance to join the family, prove your worth and rise.</p>
+            <div class="requirements">New associates considered</div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="reporting" aria-label="Reporting sources">
+        <h3>Reporting via</h3>
+        <p>Public family statements, syndicate notices, city news reports and recruitment circulars available before press time.</p>
+      </aside>
+
+      <div class="edition-foot">
+        <span>Vol. I • No. 1</span>
+        <span>Saturday Afternoon Edition</span>
+      </div>
+    </article>
+
+    <footer class="archive-foot">
+      <p class="editor-note">
+        <strong>Editor&rsquo;s note:</strong> The Chronicle covers fictional, in-game GTA roleplay storylines. Reports reflect public material available before press time; unverified claims are identified as such.
+      </p>
+      <div class="footer-line">
+        <span><a href="../">The Commission Chronicle &mdash; all editions</a></span>
+        <span>New editions filed weekly</span>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
